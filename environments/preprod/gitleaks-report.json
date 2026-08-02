@@ -1,19 +1,6 @@
 [
  {
-  "RuleID": "terraform-admin-password",
-  "Description": "Terraform hardcoded admin_password",
-  "StartLine": 75,
-  "EndLine": 75,
-  "StartColumn": 6,
-  "EndColumn": 35,
-  "Match": "admin_password  = \"DevOps@123\"",
-  "Secret": "admin_password  = \"DevOps@123\"",
-  "File": "terraform.tfvars",
-  "SymlinkFile": "",
-  "Commit": "",
-  "Entropy": 4.323231,
-  "Author": "",
-  "Email": "",
+  "RuleID": "ter
   "Date": "",
   "Message": "",
   "Tags": [
@@ -24,45 +11,25 @@
   "Fingerprint": "terraform.tfvars:terraform-admin-password:75"
  },
  {
-  "RuleID": "terraform-admin-password",
-  "Description": "Terraform hardcoded admin_password",
-  "StartLine": 90,
-  "EndLine": 90,
-  "StartColumn": 6,
-  "EndColumn": 35,
-  "Match": "admin_password  = \"DevOps@123\"",
-  "Secret": "admin_password  = \"DevOps@123\"",
-  "File": "terraform.tfvars",
-  "SymlinkFile": "",
-  "Commit": "",
-  "Entropy": 4.323231,
+  "RuleI  "Entropy": 4.323231,
   "Author": "",
   "Email": "",
   "Date": "",
   "Message": "",
-  "Tags": [
-   "terraform",
-   "password",
-   "credential"
-  ],
-  "Fingerprint": "terraform.tfvars:terraform-admin-password:90"
+  "Tags": ["Fingerprint": "terraform.tfvars:terraform-admin-password:90"
  },
  {
   "RuleID": "terraform-admin-password",
   "Description": "Terraform hardcoded admin_password",
-  "StartLine": 105,
-  "EndLine": 105,
-  "StartColumn": 6,
+  "StartLine": 105,  "End  "StartColumn": 6,
   "EndColumn": 35,
   "Match": "admin_password  = \"DevOps@123\"",
   "Secret": "admin_password  = \"DevOps@123\"",
-  "File": "terraform.tfvars",
-  "SymlinkFile": "",
+  "File": "terraform.tfvkFile": "",
   "Commit": "",
   "Entropy": 4.323231,
   "Author": "",
-  "Email": "",
-  "Date": "",
+  "Email": "",te": "",
   "Message": "",
   "Tags": [
    "terraform",
@@ -74,8 +41,7 @@
  {
   "RuleID": "terraform-admin-password",
   "Description": "Terraform hardcoded admin_password",
-  "StartLine": 120,
-  "EndLine": 120,
+  "StartLine": 120,e": 120,
   "StartColumn": 6,
   "EndColumn": 35,
   "Match": "admin_password  = \"DevOps@123\"",
