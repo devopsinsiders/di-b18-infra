@@ -1,9 +1,9 @@
-name: Terraform
+name: Terraform CI/CD
 
 on:
   push:
     branches:
-      - "**"
+      - main
 
   pull_request:
     branches:
@@ -13,93 +13,44 @@ permissions:
   contents: read
 
 jobs:
-  terraform-plan:
-    name: Terraform Plan
+
+  terraform:
+    name: Terraform
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: environments/preprod
-
     steps:
-      - name: Checkout code
+
+      # 1. Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # 2. Install Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      # 3. Azure Login
       - name: Azure Login
-        run: |
-          az login \
-            --service-principal \
-            --username "9eac3105-2ec2-4f37-8b90-3d1d851fce11" \
-            --password "W4V8Q~NmAomNOfMjBrTUT.rcYDEUB8YgKRzAgduC" \
-            --tenant "0f7010fd-209e-4344-8457-043ffb37143b"
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Set Azure Subscription
-        run: |
-          az account set \
-            --subscription "bc9d2c5e-f99f-4142-8f22-8f6dae37180d"
+      # 4. Terraform Init
+      - name: Terraform Init
+        run: terraform init
 
-      - name: Check Azure Login
-        run: az account show
-
+      # 5. Terraform Format Check
       - name: Terraform Format
-        run: terraform fmt -check -recursive
+        run: terraform fmt -check
 
-      - name: Terraform Init
-        run: terraform init
-
+      # 6. Terraform Validate
       - name: Terraform Validate
         run: terraform validate
 
-      - name: Terraform Plan
-        run: terraform plan
-
-  terraform-apply:
-    name: Terraform Apply
-    runs-on: ubuntu-latest
-
-    needs: terraform-plan
-
-    # Apply ONLY after push to main
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
-    defaults:
-      run:
-        working-directory: environments/preprod
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Azure Login
-        run: |
-          az login \
-            --service-principal \
-            --username "9eac3105-2ec2-4f37-8b90-3d1d851fce11" \
-            --password "W4V8Q~NmAomNOfMjBrTUT.rcYDEUB8YgKRzAgduC" \
-            --tenant "0f7010fd-209e-4344-8457-043ffb37143b"
-
-      - name: Set Azure Subscription
-        run: |
-          az account set \
-            --subscription "bc9d2c5e-f99f-4142-8f22-8f6dae37180d"
-
-      - name: Check Azure Login
-        run: az account show
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Validate
-        run: terraform validate
-
+      # 7. Terraform Plan
       - name: Terraform Plan
         run: terraform plan -out=tfplan
 
+      # 8. Terraform Apply
       - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve tfplan
