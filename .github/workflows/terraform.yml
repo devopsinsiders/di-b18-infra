@@ -9,6 +9,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   terraform-plan:
     name: Terraform Plan
@@ -19,11 +22,28 @@ jobs:
         working-directory: environments/preprod
 
     steps:
+
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+
+      - name: Azure Login
+        run: |
+          az login \
+            --service-principal \
+            --username "9eac3105-2ec2-4f37-8b90-3d1d851fce11" \
+            --password "0f7010fd-209e-4344-8457-043ffb37143b" \
+            --tenant "W4V8Q~NmAomNOfMjBrTUT.rcYDEUB8YgKRzAgduC"
+
+      - name: Set Azure Subscription
+        run: |
+          az account set \
+            --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+
+      - name: Check Azure Login
+        run: az account show
 
       - name: Terraform Format
         run: terraform fmt -check -recursive
