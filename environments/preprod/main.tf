@@ -65,6 +65,3 @@ resource "azurerm_network_interface_backend_address_pool_association" "lb_assoc"
   backend_address_pool_id = module.load_balancer.backend_address_pool_ids["lb1"]
 }
 
-output "resource_group_ids" {
-  value = module.resource_group.rg_ids
-}
