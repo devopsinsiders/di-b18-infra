@@ -1,22 +1,16 @@
 name: Terraform
 
 on:
+  push:
+    branches:
+      - "**"
+
   pull_request:
     branches:
       - main
-    paths:
-      - "environments/preprod/**"
-      - "modules/**"
-
-  push:
-    branches:
-      - main
-    paths:
-      - "environments/preprod/**"
-      - "modules/**"
 
 jobs:
-  terraform:
+  terraform-plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
 
