@@ -22,7 +22,6 @@ jobs:
         working-directory: environments/preprod
 
     steps:
-
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -56,3 +55,51 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan
+
+  terraform-apply:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+
+    needs: terraform-plan
+
+    # Apply ONLY after push to main
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    defaults:
+      run:
+        working-directory: environments/preprod
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Azure Login
+        run: |
+          az login \
+            --service-principal \
+            --username "9eac3105-2ec2-4f37-8b90-3d1d851fce11" \
+            --password "W4V8Q~NmAomNOfMjBrTUT.rcYDEUB8YgKRzAgduC" \
+            --tenant "0f7010fd-209e-4344-8457-043ffb37143b"
+
+      - name: Set Azure Subscription
+        run: |
+          az account set \
+            --subscription "bc9d2c5e-f99f-4142-8f22-8f6dae37180d"
+
+      - name: Check Azure Login
+        run: az account show
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
