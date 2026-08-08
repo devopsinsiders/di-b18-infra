@@ -40,7 +40,7 @@ jobs:
       - name: Set Azure Subscription
         run: |
           az account set \
-            --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+            --subscription "bc9d2c5e-f99f-4142-8f22-8f6dae37180d"
 
       - name: Check Azure Login
         run: az account show
