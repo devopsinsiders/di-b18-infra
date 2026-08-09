@@ -19,6 +19,10 @@ rgs = {
     name     = "rg-chor-dev-5"
     location = "centralindia"
   }
+   rg6 = {
+    name     = "rg-chor-dev-6"
+    location = "centralindia"
+  }
 }
 
 vnets = {
