@@ -31,17 +31,11 @@ jobs:
       - name: Azure Login
         run: |
           az login \
-            --service-principal \
-            --username "df8d4562-fbbb-460f-aeb4-6c2a3e20f93d" \
-            --password "ozX8Q~e5YcTvLgsI24THL3AAGfOYCWRxbQCmMdrf" \
-            --tenant "df8d4562-fbbb-460f-aeb4-6c2a3e20f93d
-
-
-      - name: Set Azure Subscription
-        run: |
-          az account set \
-            --subscription "c1b1d9d6-201f-4fc0-be46-2641cd9838df"
-
+          --clientId "df8d4562-fbbb-460f-aeb4-6c2a3e20f93d"\
+          --tenantId "68b57cef-8853-40ba-a5bf-74d983ad860c"\
+          --clientSecret "dw68Q~MhGwzWoi~tj.dIOKwArKEAXuk7UXP4taCQ"\
+          --subscriptionId "c1b1d9d6-201f-4fc0-be46-2641cd9838df"
+      
       - name: Check Azure Login
         run: az account show
 
@@ -80,10 +74,10 @@ jobs:
       - name: Azure Login
         run: |
           az login \
-            --service-principal \
-            --username "9eac3105-2ec2-4f37-8b90-3d1d851fce11" \
-            --password "W4V8Q~NmAomNOfMjBrTUT.rcYDEUB8YgKRzAgduC" \
-            --tenant "0f7010fd-209e-4344-8457-043ffb37143b"
+          --clientId "df8d4562-fbbb-460f-aeb4-6c2a3e20f93d"\
+          --tenantId "68b57cef-8853-40ba-a5bf-74d983ad860c"\
+          --clientSecret "dw68Q~MhGwzWoi~tj.dIOKwArKEAXuk7UXP4taCQ"\
+          --subscriptionId "c1b1d9d6-201f-4fc0-be46-2641cd9838df"
 
       - name: Set Azure Subscription
         run: |
